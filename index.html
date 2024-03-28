@@ -11,7 +11,169 @@
             crossorigin="anonymous"
         />
     </head>
-    <body>
+    <body class="container text-center mt-5">
+        <h1>Tienda virtual</h1>
+        <main class="container mt-5">
+            <div class="row">
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Palta 🥑</h5>
+                            <p>Precio: $1000</p>
+                            <button class="btn btn-info text-white" data-fruta="Palta" data-precio="1000">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Uva 🍇</h5>
+                            <p>Precio: $450</p>
+                            <button class="btn btn-info text-white" data-fruta="Uva" data-precio="450">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Manzana 🍎</h5>
+                            <p>Precio: $300</p>
+                            <button class="btn btn-info text-white" data-fruta="Manzana" data-precio="300">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Mandarina 🍊</h5>
+                            <p>Precio: $250</p>
+                            <button class="btn btn-info text-white" data-fruta="Mandarina" data-precio="250">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Kiwii 🥝</h5>
+                            <p>Precio: $500</p>
+                            <button class="btn btn-info text-white" data-fruta="Palta" data-precio="500">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Frutilla 🍓</h5>
+                            <p>Precio: $350</p>
+                            <button class="btn btn-info text-white" data-fruta="Frutilla" data-precio="350">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Durazno 🍑</h5>
+                            <p>Precio: $600</p>
+                            <button class="btn btn-info text-white" data-fruta="Durazno" data-precio="600">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Melón 🍈</h5>
+                            <p>Precio: $700</p>
+                            <button class="btn btn-info text-white" data-fruta="Melón" data-precio="700">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Pera 🍐</h5>
+                            <p>Precio: $550</p>
+                            <button class="btn btn-info text-white" data-fruta="Pera" data-precio="550">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Piña 🍍</h5>
+                            <p>Precio: $850</p>
+                            <button class="btn btn-info text-white" data-fruta="Piña" data-precio="850">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Cerezas 🍒</h5>
+                            <p>Precio: $300</p>
+                            <button class="btn btn-info text-white" data-fruta="Cerezas" data-precio="300">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-sm-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Arándanos 🫐</h5>
+                            <p>Precio: $900</p>
+                            <button class="btn btn-info text-white" data-fruta="Arándanos" data-precio="900">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <h2>Carrito</h2>
+        <section class="container mb-5">
+            <ul class="list-group" id="carrito"></ul>
+            <ul class="list-group" id="sumaTotal"></ul>
+        </section>
+
+        <template id="template">
+            <li class="list-group-item d-flex align-items-center">
+                <span class="lead">Frutilla</span>
+                <div class="ms-auto">
+                    <span class="badge text-bg-info text-white">Cantidad:12</span>
+                    <span class="badge text-bg-info text-white precio">Precio:</span>
+                </div>
+            </li>
+        </template>
+        <template id="templateTotal">
+            <li class="list-group-item d-flex align-items-center">
+                <div class="ms-auto">
+                    <span class="lead suma">Total:</span>
+                    <span class="text-bg-dark total rounded-pill p-1">moneda total</span>
+                </div>
+            </li>
+        </template>
+
         <script src="./assets/js/app.js"></script>
     </body>
 </html>
