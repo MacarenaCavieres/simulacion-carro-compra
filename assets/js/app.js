@@ -12,7 +12,7 @@ const pintarCarrito = (e) => {
     const fruta = {
         nombre: e.target.dataset.fruta,
         cantidad: 1,
-        precio: e.target.dataset.precio,
+        precio: +e.target.dataset.precio,
     };
 
     let price = fruta.precio;
@@ -25,6 +25,8 @@ const pintarCarrito = (e) => {
     carritoObjeto[fruta.nombre] = fruta;
 
     agregarCarrito();
+    totalSuma();
+    decrease(fruta, price);
 };
 
 const agregarCarrito = () => {
@@ -33,8 +35,10 @@ const agregarCarrito = () => {
     Object.values(carritoObjeto).forEach((item) => {
         const clone = template.content.firstElementChild.cloneNode(true);
         clone.querySelector(".lead").textContent = item.nombre;
-        clone.querySelector(".badge").textContent = `Cantidad: ${item.cantidad}`;
+        clone.querySelector(".disminuir").textContent = `-`;
+        clone.querySelector(".cantidad").textContent = `Cantidad: ${item.cantidad}`;
         clone.querySelector(".precio").textContent = `Precio: ${item.precio}`;
+        clone.querySelector(".delete").textContent = `X`;
 
         fragment.appendChild(clone);
     });
@@ -43,11 +47,36 @@ const agregarCarrito = () => {
 };
 
 const totalSuma = () => {
-    sumaTotal.textContent = "";
-
     let all = 0;
 
-    Object.values(carritoObjeto).forEach((item) => {});
+    Object.values(carritoObjeto).forEach((item) => {
+        all += item.precio;
+    });
+
+    sumaTotal.textContent = "";
+
+    const clone = templateTotal.content.firstElementChild.cloneNode(true);
+    clone.querySelector(".suma").textContent = "Total";
+    clone.querySelector(".total").textContent = `$${all}`;
+
+    fragmentTotal.appendChild(clone);
+
+    sumaTotal.appendChild(fragmentTotal);
+};
+
+const decrease = (fruta, price) => {
+    const disminuir = document.querySelectorAll(".disminuir");
+
+    disminuir.forEach((btn) =>
+        btn.addEventListener("click", () => {
+            if (carritoObjeto[fruta.nombre].cantidad > 0) {
+                carritoObjeto[fruta.nombre].cantidad = carritoObjeto[fruta.nombre].cantidad - 1;
+                carritoObjeto[fruta.nombre].precio = price * carritoObjeto[fruta.nombre].cantidad;
+                agregarCarrito();
+                totalSuma();
+            }
+        })
+    );
 };
 
 btnes.forEach((btn) => btn.addEventListener("click", pintarCarrito));
