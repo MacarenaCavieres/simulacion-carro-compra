@@ -13,20 +13,19 @@ const pintarCarrito = (e) => {
         nombre: e.target.dataset.fruta,
         cantidad: 1,
         precio: +e.target.dataset.precio,
+        total: +e.target.dataset.precio,
     };
 
     let price = fruta.precio;
 
     if (carritoObjeto.hasOwnProperty(fruta.nombre)) {
         fruta.cantidad = carritoObjeto[fruta.nombre].cantidad + 1;
-        fruta.precio = price * (carritoObjeto[fruta.nombre].cantidad + 1);
+        fruta.total = price * (carritoObjeto[fruta.nombre].cantidad + 1);
     }
-
     carritoObjeto[fruta.nombre] = fruta;
 
     agregarCarrito();
     totalSuma();
-    decrease(fruta, price);
 };
 
 const agregarCarrito = () => {
@@ -35,10 +34,10 @@ const agregarCarrito = () => {
     Object.values(carritoObjeto).forEach((item) => {
         const clone = template.content.firstElementChild.cloneNode(true);
         clone.querySelector(".lead").textContent = item.nombre;
-        clone.querySelector(".disminuir").textContent = `-`;
+        clone.querySelector(".disminuir").dataset.fruta = item.nombre;
         clone.querySelector(".cantidad").textContent = `Cantidad: ${item.cantidad}`;
-        clone.querySelector(".precio").textContent = `Precio: ${item.precio}`;
-        clone.querySelector(".delete").textContent = `X`;
+        clone.querySelector(".precio").textContent = `Precio: ${item.total}`;
+        clone.querySelector(".delete").dataset.fruta = item.nombre;
 
         fragment.appendChild(clone);
     });
@@ -50,7 +49,7 @@ const totalSuma = () => {
     let all = 0;
 
     Object.values(carritoObjeto).forEach((item) => {
-        all += item.precio;
+        all += item.total;
     });
 
     sumaTotal.textContent = "";
@@ -64,19 +63,29 @@ const totalSuma = () => {
     sumaTotal.appendChild(fragmentTotal);
 };
 
-const decrease = (fruta, price) => {
-    const disminuir = document.querySelectorAll(".disminuir");
+carrito.addEventListener("click", (e) => {
+    if (e.target.classList.contains("disminuir")) {
+        let price = carritoObjeto[e.target.dataset.fruta].precio;
+        if (
+            carritoObjeto[e.target.dataset.fruta].cantidad > 0 &&
+            carritoObjeto.hasOwnProperty(e.target.dataset.fruta)
+        ) {
+            carritoObjeto[e.target.dataset.fruta].cantidad -= 1;
+            carritoObjeto[e.target.dataset.fruta].total =
+                price * carritoObjeto[e.target.dataset.fruta].cantidad;
+            agregarCarrito();
+            totalSuma();
+        }
+    }
+});
 
-    disminuir.forEach((btn) =>
-        btn.addEventListener("click", () => {
-            if (carritoObjeto[fruta.nombre].cantidad > 0) {
-                carritoObjeto[fruta.nombre].cantidad = carritoObjeto[fruta.nombre].cantidad - 1;
-                carritoObjeto[fruta.nombre].precio = price * carritoObjeto[fruta.nombre].cantidad;
-                agregarCarrito();
-                totalSuma();
-            }
-        })
-    );
-};
+carrito.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete")) {
+        const frutaNombre = e.target.dataset.fruta;
+        delete carritoObjeto[frutaNombre];
+        agregarCarrito();
+        totalSuma();
+    }
+});
 
 btnes.forEach((btn) => btn.addEventListener("click", pintarCarrito));
